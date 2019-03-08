@@ -43,7 +43,6 @@ def Archiwum():
     return render_template('dirs.html', list_of_videos = list_of_videos)
 
 
-
 @app.route('/startrec')                                          # Modal Form to fetch the timer to run the recording for.
 def startRecording():
 	try:
@@ -68,5 +67,4 @@ def stopRecording():
 	return redirect("/")
 
 if __name__ == '__main__':
-
 	app.run(host='0.0.0.0', port=80, threaded=True)

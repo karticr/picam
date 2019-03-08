@@ -4,8 +4,6 @@ import picamera
 from base_camera import BaseCamera
 import threading
 
-
-
 class cameraObject():
     def __init__(self, *args, **kwargs):
         self.camera = picamera.PiCamera()
@@ -17,13 +15,7 @@ class cameraObject():
     def stopRecording(self):
         self.camera.stop_recording()
 
-
-camera = cameraObject()
-camer = camera.camera
-
-
 class Camera(BaseCamera):
-    
     @staticmethod
     def frames():
         #with picamera.PiCamera() as camera:
@@ -34,7 +26,7 @@ class Camera(BaseCamera):
         #picamera.PiCamera()
         stream = io.BytesIO()
         #camer = camera.camera
-        for _ in camer.capture_continuous(stream, 'jpeg',
+        for _ in camera.camera.capture_continuous(stream, 'jpeg',
                                                 use_video_port=True):
             # return current frame
             stream.seek(0)
@@ -44,4 +36,5 @@ class Camera(BaseCamera):
             stream.seek(0)
             stream.truncate()
 
-#Camera()
+
+camera = cameraObject()
