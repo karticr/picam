@@ -1,0 +1,31 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Recorder</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="{{url_for('static',filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static',filename = 'favicon.ico')}}">
+    <link href="{{url_for('static',filename = 'css/sticky-footer.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="{{url_for('static',filename = 'js/jquery-3.2.1.slim.min.js')}}"></script>
+    <script type="text/javascript" src="{{url_for('static',filename = 'js/bootstrap.min.js')}}"></script>
+</head>
+  <body>
+    <div class="container" style="width: 100%; height: 100%;" >
+      <div class="row justify-content-center">
+        <div class="jumbotron">
+              <h1 class="display-4">Camera Preview</h1>
+              <hr class="my-4">
+              <img src="{{ url_for('video_feed') }}" style="max-width: 100%;
+              height: auto;">
+              <hr class="my-4">
+              
+            
+                  <a href="/startrec" class="btn btn-success btn-block" role="button">start</a> 
+                  <a href="/stoprec" class="btn btn-success btn-block" role="button">stop</a> 
+                  <a href="/archive" class="btn btn-success btn-block" role="button">archives</a> 
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+<!-- Made By karthik ravi-20/4/2018-->
