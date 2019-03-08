@@ -1,0 +1,25 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>videos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link href="{{url_for('static',filename = 'css/bootstrap.min.css')}}" rel="stylesheet">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{url_for('static',filename = 'favicon.ico')}}">
+        <link href="{{url_for('static',filename = 'css/sticky-footer.css')}}" rel="stylesheet">
+        <script type="text/javascript" src="{{url_for('static',filename = 'js/jquery-3.2.1.slim.min.js')}}"></script>
+        <script type="text/javascript" src="{{url_for('static',filename = 'js/bootstrap.min.js')}}"></script>
+    </head>
+    <body>
+        <h3>Recorded Videos</h3>
+        <hr class="my-4">
+        <div class="list-group">
+            {% for name in list_of_videos %}
+                <a href="/static/videos/{{ name }}" class="list-group-item list-group-item-action ">{{ name }}</a>
+            {% endfor %}
+          </div>
+          <hr class="my-4">
+          <a href="/" class="btn btn-success btn-block" role="button">Back</a> 
+
+
+    </body>
+</html>
