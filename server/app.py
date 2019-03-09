@@ -1,16 +1,17 @@
-from flask import Flask, render_template, Response, flash, redirect, url_for, session, logging, request			# Python Libraries
-import threading
+from flask import Flask, render_template, flash, request, url_for, redirect, Response, jsonify, flash, session			# Python Libraries
+from flask_socketio import SocketIO, send, emit
+from threading import Thread
 from camera_pi import * 																						# Custom Libraries
 from time import sleep
 import datetime
 import os
+from random import randint
 
-dir = "/home/pi/FlaskSite/static/videos"																	    # Location for storing videos
-
-app = Flask(__name__)																							# Flask Object
+app = Flask(__name__)		
+app.config['SECRET_KEY'] = 'mysecret'
+socketio = SocketIO(app)
+																					# Flask Object
 cam = Camera()																								  	# Camera Control Object
-
-record_bool = False
 
 def getDateTime():
     dateTime = '{0:%Y-%m-%d}'.format(datetime.datetime.now())
@@ -27,13 +28,11 @@ def gen(camera):
 def Podglad_Wideo():
 	return render_template('index.html')
 
-
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
-
 
 @app.route('/camera', methods=["GET", "POST"])
 def picturesapi():
@@ -92,7 +91,32 @@ def picturesapi():
     except Exception as e:
         print(str(e))
         return "0"
-		
+
+@socketio.on('connect', namespace='/chat')
+def test_connect():
+        print("why?")
+        emit('my response', {'data': 'Connected'})
+
+@socketio.on('message')
+def handleMessage(msg):
+    print('Message: ' + msg)
+    send(msg, broadcast=True)
+
+@socketio.on('/chat')
+def broadcasterrr(msg):
+    print(msg)
+    #socketio.emit('/test', "dafaq")
+
+def threader():
+    last_state = False
+    while True:
+        cur_state = camera.recordingState()
+        if (cur_state != last_state):
+            socketio.emit('/test', str(cur_state), broadcast=True)
+            last_state = camera.recordingState()
+        sleep(2)
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0', port=80, threaded=True)
+	# app.run(host='0.0.0.0', port=80, threaded=True)
+    Thread(target= threader).start()
+    socketio.run(app, host='0.0.0.0', port = 800)
