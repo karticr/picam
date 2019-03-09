@@ -82,6 +82,7 @@ def picturesapi():
                 print(type(new_settings['rotation']))
 
                 camera.changeSettings(new_settings)
+				
             if(cmd == "status"):
                 return str(camera.recordingState())
             return "Success"
