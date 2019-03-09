@@ -15,7 +15,7 @@ record_bool = False
 def getDateTime():
     dateTime = '{0:%Y-%m-%d}'.format(datetime.datetime.now())
     onlyTime = '{0:%H:%M:%S}'.format(datetime.datetime.now())
-    return "/"+dateTime+"_"+onlyTime+'.h264'
+    return "{}_{}".format(dateTime, onlyTime)
 
 def gen(camera):
 		while True:
@@ -35,36 +35,63 @@ def video_feed():
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
-# path to the archive. for now there is nothing there
-@app.route('/archive')
-def Archiwum():
-    list_of_videos  = os.listdir('/home/pi/FlaskSite/static/videos')													# Directory for saving the videos
-    print(list_of_videos)
-    return render_template('dirs.html', list_of_videos = list_of_videos)
+@app.route('/camera', methods=["GET", "POST"])
+def picturesapi():
+    try:
+        if request.method == "POST":
+            cmd   = request.args['cmd']
+            
+            if(cmd == "start_recording"):
+                current_date_time = getDateTime()
+                camera.startRecording(current_date_time)
 
+            if(cmd == "stop_recording"):
+                camera.stopRecording()
 
-@app.route('/startrec')                                          # Modal Form to fetch the timer to run the recording for.
-def startRecording():
-	try:
-		print("recording started")
-		file_name = dir+getDateTime()
-		print(file_name)
-		camera.startRecording(file_name)
-	except:
-		print("fudge 1")
-		pass
+            if(cmd == "take_picture"):
+                current_date_time = getDateTime()
+                camera.takePicture(current_date_time)
 
-	return redirect("/")
+            if(cmd == "settings"):
+                data = c.settings()
+                print(data)
+                return jsonify(data)
 
-@app.route('/stoprec')                                          # Modal Form to fetch the timer to run the recording for.
-def stopRecording():
-	try:
-		camera.stopRecording()
-		print("recording ended")
-	except:
-		print("fudge 2")
-		pass
-	return redirect("/")
+            if(cmd == "editsettings"):
+                new_settings = request.json
+                new_settings['fps']        = int(new_settings['fps'])
+                new_settings['resolution'] = tuple([int(x) for x in new_settings['resolution'].split("x")])
+                new_settings['fps_range']  = tuple([float(x) for x in new_settings['fps_range'].split(",")])
+                 
+                print(new_settings['rotation'])
+                print(type(new_settings['rotation']))
+
+                new_settings['rotation']   = int(new_settings['rotation'])      
+                
+                if(new_settings['h_flip'] == "True"):
+                    new_settings['h_flip'] = True
+                else:
+                    new_settings['h_flip'] = False
+
+                if(new_settings['v_flip'] == "True"):
+                    new_settings['v_flip'] = True
+                else:
+                    new_settings['v_flip'] = False   
+
+                print(new_settings['rotation'])
+                print(type(new_settings['rotation']))
+
+                camera.changeSettings(new_settings)
+            if(cmd == "status"):
+                return str(camera.recordingState())
+            return "Success"
+        else: 
+            return "3"
+
+    except Exception as e:
+        print(str(e))
+        return "0"
+		
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=80, threaded=True)
