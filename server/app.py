@@ -119,4 +119,4 @@ def threader():
 if __name__ == '__main__':
 	# app.run(host='0.0.0.0', port=80, threaded=True)
     Thread(target= threader).start()
-    socketio.run(app, host='0.0.0.0', port = 800)
+    socketio.run(app, host='0.0.0.0', port = 80)
