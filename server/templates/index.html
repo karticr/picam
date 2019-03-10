@@ -11,7 +11,25 @@
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <style>
+       #circle {
+            background: #f00;
+            width:  15px;
+            height: 15px;
+            border-radius: 50%;
+        }
+        .recstate {
+            position: relative;
+            text-align: center;
+            color: white;
+          }
+        .top-right {
+            position: absolute;
+            top: 8px;
+            right: 16px;
+          }
 
+    </style>
     <script type="text/javascript">
       $(document).ready(function() {
         var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
@@ -45,8 +63,13 @@
         <div class="jumbotron">
               <h1 class="display-4">Camera Preview</h1>
               <hr class="my-4">
-              <img src="{{ url_for('video_feed') }}" style="max-width: 100%;
-              height: auto;">
+              <div class="recstate">
+                <img src="{{ url_for('video_feed') }}" style="max-width: 100%;
+                height: auto;">
+                <div class="top-right">
+                    <div id="circle"></div>
+                </div>
+              </div>
               <hr class="my-4">
               
             
