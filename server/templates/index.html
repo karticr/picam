@@ -42,9 +42,9 @@
               console.log(msg);
           });
           
-          socket.on('/test', function(d) {
-                  console.log(d);
-                  document.getElementById("yolo").innerHTML = d;
+          socket.on('/recstate', function(state) {
+                  console.log(state);
+                  document.getElementById("yolo").innerHTML = state;
           });
       
         $('#sendbutton').on('click', function() {
@@ -52,7 +52,7 @@
               $('#myMessage').val('');
           });
           
-          //setInterval(function(){ socket.emit('/chat',"Hello"); }, 1000);
+        setInterval(function(){ socket.emit('/control',"recState"); }, 5000);
       });
       </script>
 </head>
@@ -70,9 +70,7 @@
                     <div id="circle"></div>
                 </div>
               </div>
-              <hr class="my-4">
-              
-            
+              <hr class="my-4">       
                   <a href="/startrec" class="btn btn-success btn-block" role="button">start</a> 
                   <a href="/stoprec" class="btn btn-success btn-block" role="button">stop</a> 
                   <a href="/archive" class="btn btn-success btn-block" role="button">archives</a> 
