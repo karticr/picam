@@ -28,8 +28,12 @@ def gen(camera):
 def index():
 	return render_template('index.html')
 
+@app.route('/raw_output')
+def cameraOnlyOutput():
+	return render_template('cameraonly.html')
+
 @app.route('/video_feed')
-def video_feed():
+def videoFeed():
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
