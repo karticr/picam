@@ -12,9 +12,10 @@ Work in progress by karthik.
  
 ## How
 This project is a basic webcontrol for taking pictures and videos using the pi camera using a webportal over the network.
+the server runs at port 8080 by default
 
 ## Quick install
-Give excute permission to the install script and running it will install the camera server and runit on port 8080 by default
+Give excute permission to the install script and running it will install the camera server 
 ```sh
 $ git clone https://github.com/doct0rr/picam.git
 $ cd picam 
