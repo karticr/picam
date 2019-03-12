@@ -5,6 +5,8 @@ Work in progress by karthik.
 ## Contents
  - [How It Works](#prerequisites)
  - [Quick install](#quick-install)
+ - [Manual installation](#manual-installation)
+ - [How to contribute](#how-to-contribute)
  - [Support Me](#Support-me)
  - [License](#license)
  
@@ -17,6 +19,13 @@ Give excute permission to the install script and running it will install the cam
 $ sudo chmod +x install.sh
 $ sudo ./install.sh
 ```
+
+## How to contribute
+
+1. reports problems and issues in the repo, use the trackers.
+2. Fork the project and create new branches.
+3. Share the project.
+
 ## Support me
 If you feel like picam is useful for your projects, please consider supporting me for future projects like this.
 
