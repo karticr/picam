@@ -3,19 +3,21 @@ Basic raspberry pi camera stream accessable through a browser
 Work in progress by karthik.
 
 ## Contents
- - [How It Works](#prerequisites)
+ - [How It Works](#how)
  - [Quick install](#quick-install)
  - [Manual installation](#manual-installation)
  - [How to contribute](#how-to-contribute)
  - [Support Me](#Support-me)
  - [License](#license)
  
-## prerequisites
+## How
 This project is a basic webcontrol for taking pictures and videos using the pi camera using a webportal over the network.
 
 ## Quick install
 Give excute permission to the install script and running it will install the camera server and runit on port 8080 by default
 ```sh
+$ git clone https://github.com/doct0rr/picam.git
+$ cd picam 
 $ sudo chmod +x install.sh
 $ sudo ./install.sh
 ```
