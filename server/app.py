@@ -55,7 +55,7 @@ def picturesapi():
                 camera.takePicture(current_date_time)
 
             if(cmd == "settings"):
-                data = c.settings()
+                data = camera.settings()
                 print(data)
                 return jsonify(data)
 
